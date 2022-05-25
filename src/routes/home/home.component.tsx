@@ -1,4 +1,4 @@
-import { CategoriesContainer } from "../../components/category/categories-container/categories-container";
+import { CategoriesContainer } from "../../components/category/categories-container/categories-container.component";
 
 const categories = [
   {
