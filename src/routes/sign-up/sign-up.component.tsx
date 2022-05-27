@@ -26,7 +26,7 @@ const SignUp = () => {
 
     if (password !== confirmPassword) {
       alert("Passwords don't match");
-      return
+      return;
     }
 
     try {
@@ -47,7 +47,8 @@ const SignUp = () => {
 
   return (
     <div>
-      <h1>Sign up with your email and password</h1>
+      <h2>Don't have an account?</h2>
+      <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           required
