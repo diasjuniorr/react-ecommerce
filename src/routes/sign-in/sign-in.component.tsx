@@ -1,105 +1,11 @@
-import { useState } from "react";
-import Button from "../../components/button/button.component";
-import FormInput from "../../components/form-input/form-input.component";
-import {
-  signinWithgooglePopup,
-  createUserDocFromAuth,
-  signUpWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils";
-
-const form = {
-  displayName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
+import SignInForm from "../../components/sign-in-form/sign-in-form.component";
+import SignUpForm from "../../components/sign-up-form/sign-up-form.component";
 
 const SignIn = () => {
-  const [formFields, setFormFields] = useState(form);
-  const { displayName, email, password, confirmPassword } = formFields;
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormFields({ ...formFields, [name]: value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (password !== confirmPassword) {
-      alert("Passwords don't match");
-      return;
-    }
-
-    try {
-      const userCredentials = await signUpWithEmailAndPassword(email, password);
-      await createUserDocFromAuth(userCredentials.user, {
-        displayName,
-      });
-
-      resetFormFields();
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  const resetFormFields = () => {
-    setFormFields(form);
-  };
-  const signInWithGoogle = async () => {
-    const response = await signinWithgooglePopup();
-    const user = await createUserDocFromAuth(response.user);
-    console.log("user", user);
-  };
-
   return (
     <>
-      <div>
-        <h1>Sign in page</h1>
-        <button onClick={signInWithGoogle}>Sign in</button>
-      </div>
-      <div>
-        <h2>Don't have an account?</h2>
-        <span>Sign up with your email and password</span>
-        <form onSubmit={handleSubmit}>
-          <FormInput
-            required
-            label="Display Name"
-            name="displayName"
-            type="text"
-            value={displayName}
-            onChange={handleChange}
-          />
-
-          <FormInput
-            required
-            label="Email"
-            name="email"
-            type="email"
-            value={email}
-            onChange={handleChange}
-          />
-
-          <FormInput
-            required
-            label="Password"
-            name="password"
-            type="password"
-            value={password}
-            onChange={handleChange}
-          />
-
-          <FormInput
-            required
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            value={confirmPassword}
-            onChange={handleChange}
-          />
-          <Button type="submit">Sign up</Button>
-        </form>
-      </div>
+      <SignInForm />
+      <SignUpForm />
     </>
   );
 };
