@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
-import {UserContext} from "../../contexts/user.context"
+import { UserContext } from "../../contexts/user.context";
 import {
   createUserDocFromAuth,
   signInWithEmail,
@@ -39,6 +39,7 @@ const SignInForm = () => {
   const signInWithGoogle = async () => {
     const response = await signinWithgooglePopup();
     const user = await createUserDocFromAuth(response.user);
+    userContext?.setUser(response);
     console.log("user", user);
   };
 
@@ -65,7 +66,11 @@ const SignInForm = () => {
         />
         <div className="buttons-container">
           <Button type="submit">SIGN IN</Button>
-          <Button type="button" className="google-sign-in" onClick={signInWithGoogle}>
+          <Button
+            type="button"
+            className="google-sign-in"
+            onClick={signInWithGoogle}
+          >
             GOOGLE SIGN IN
           </Button>
         </div>
