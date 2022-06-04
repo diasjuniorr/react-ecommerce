@@ -1,7 +1,10 @@
 import { UserCredential } from "firebase/auth";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { onAuthStateChangedListener } from "../utils/firebase/firebase.utils";
+import {
+  createUserDocFromAuth,
+  onAuthStateChangedListener,
+} from "../utils/firebase/firebase.utils";
 
 interface Props {
   children: React.ReactNode;
@@ -19,9 +22,15 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
   const value = { user, setUser };
 
   useEffect(() => {
-    onAuthStateChangedListener((user)=>{
-      setUser(user)
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocFromAuth(user);
+      }
+      setUser(user);
     });
-  }, [])
+
+    return unsubscribe;
+  }, []);
+
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
