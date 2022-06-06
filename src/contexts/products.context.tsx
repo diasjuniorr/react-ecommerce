@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 const defaultProducts = require("../shop-data.json")
 
 interface Props {
@@ -20,7 +20,7 @@ interface ProductsContextProps {
 export const ProductsContext = React.createContext<ProductsContextProps | null>(null);
 
 export const ProductsProvider: React.FC<Props> = ({ children }) => {
-  const [products, setProducts] = React.useState<Product[]>(defaultProducts);
+  const [products, setProducts] = useState<Product[]>(defaultProducts);
   const value = { products, setProducts };
 
   return (
