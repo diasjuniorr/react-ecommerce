@@ -1,18 +1,18 @@
+import { CartItem, Product } from "../../shared/interfaces/products.interface";
 import Button from "../button/button.component";
 import "./product-card.styles.scss";
 
 interface ProductCardProps {
   product: Product;
+  addItemToCart: (item: CartItem) => void;
 }
 
-interface Product {
-  id: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-}
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  addItemToCart,
+}) => {
+  const addProductToCart = () => addItemToCart({ ...product, quantity: 1 });
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="product-card-container">
       <img src={product.imageUrl} alt={product.name} />
@@ -20,7 +20,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <span className="name">{product.name}</span>
         <span className="price">{product.price}</span>
       </div>
-      <Button className=" inverted button">ADD TO CARD</Button>
+      <Button className=" inverted button" onClick={() => addProductToCart()}>
+        ADD TO CARD
+      </Button>
     </div>
   );
 };
