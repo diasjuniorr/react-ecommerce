@@ -16,6 +16,10 @@ const CheckoutItem: React.FC<CheckoutItemProps> = ({
 }) => {
   const { imageUrl, name, quantity, price } = cartItem;
 
+  const removeItemHandler = () => removeItemFromCart(cartItem);
+  const addItemHandler = () => addItemToCart(cartItem);
+  const removeAllItemsHandler = () => removeAllItems(cartItem);
+
   return (
     <div className="checkout-item-container">
       <div className="image-container">
@@ -23,16 +27,16 @@ const CheckoutItem: React.FC<CheckoutItemProps> = ({
       </div>
       <span className="name">{name}</span>
       <span className="quantity">
-        <div className="arrow" onClick={() => removeItemFromCart(cartItem)}>
+        <div className="arrow" onClick={removeItemHandler}>
           &#60;
         </div>
         <div className="value">{quantity}</div>
-        <div className="arrow" onClick={() => addItemToCart(cartItem)}>
+        <div className="arrow" onClick={addItemHandler}>
           &#62;
         </div>
       </span>
       <span className="price">{`$${price * quantity}`}</span>
-      <div className="remove-button" onClick={() => removeAllItems(cartItem)}>
+      <div className="remove-button" onClick={removeAllItemsHandler}>
         &#10005;
       </div>
     </div>
