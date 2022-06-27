@@ -20,7 +20,7 @@ const Shop = () => {
       {Object.keys(categoriesMap).map((key) => {
         const category = categoriesMap[key];
         return (
-          <>
+          <div key={key}>
             <h2 className="category-title">{key}</h2>
             <div className="products-container">
               {category.slice(0, 4).map((product) => (
@@ -31,7 +31,7 @@ const Shop = () => {
                 />
               ))}
             </div>
-          </>
+          </div>
         );
       })}
     </>
