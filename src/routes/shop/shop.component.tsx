@@ -1,24 +1,40 @@
 import { useContext } from "react";
 import ProductCard from "../../components/product-card/product-card.component";
 import { CartContext } from "../../contexts/cart.context";
-import { ProductsContext } from "../../contexts/products.context";
+import {
+  CategoriesContext,
+  CategoriesContextProps,
+} from "../../contexts/categories.context";
 import "./shop.styles.scss";
 
 const Shop = () => {
-  const productContext = useContext(ProductsContext);
+  const categoriesContext = useContext(
+    CategoriesContext
+  ) as CategoriesContextProps;
   const cartContext = useContext(CartContext);
+  const { categoriesMap } = categoriesContext;
   const { addItemToCart } = cartContext;
 
   return (
-    <div className="products-container">
-      {productContext?.products.map((product) => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          addItemToCart={addItemToCart}
-        />
-      ))}
-    </div>
+    <>
+      {Object.keys(categoriesMap).map((key) => {
+        const category = categoriesMap[key];
+        return (
+          <>
+            <h2 className="category-title">{key}</h2>
+            <div className="products-container">
+              {category.slice(0, 4).map((product) => (
+                <ProductCard
+                  product={product}
+                  key={product.id}
+                  addItemToCart={addItemToCart}
+                />
+              ))}
+            </div>
+          </>
+        );
+      })}
+    </>
   );
 };
 
