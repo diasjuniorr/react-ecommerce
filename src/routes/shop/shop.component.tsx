@@ -1,4 +1,6 @@
 import { useContext } from "react";
+import { Route, Routes } from "react-router-dom";
+import Category from "../../components/category/category/category.component";
 import PreviewCategory from "../../components/preview-category/preview-category";
 import {
   CategoriesContext,
@@ -11,7 +13,18 @@ const Shop = () => {
   ) as CategoriesContextProps;
   const { categoriesMap } = categoriesContext;
 
-  return <PreviewCategory categoriesMap={categoriesMap} />;
+  return (
+    <Routes>
+      <Route
+        index
+        element={<PreviewCategory categoriesMap={categoriesMap} />}
+      />
+      <Route
+        path=":categoryID"
+        element={<Category categoriesMap={categoriesMap} />}
+      />
+    </Routes>
+  );
 };
 
 export default Shop;
