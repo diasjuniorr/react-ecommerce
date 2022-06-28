@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { CartContext } from "../../contexts/cart.context";
 import { CategoriesMap } from "../../shared/interfaces/category.interface";
 import ProductCard from "../product-card/product-card.component";
@@ -19,7 +20,9 @@ const PreviewCategory: React.FC<PreviewCategoryProps> = ({ categoriesMap }) => {
         return (
           <div key={key}>
             <h2 className="category-title">
-              <span>{key}</span>
+              <Link to={`/shop/${key}`}>
+                <span>{key}</span>
+              </Link>
             </h2>
             <div className="products-container">
               {category.slice(0, 4).map((product) => (
