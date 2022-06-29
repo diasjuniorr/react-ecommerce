@@ -4,7 +4,7 @@ import { CartContext } from "../../contexts/cart.context";
 import { CategoriesMap } from "../../shared/interfaces/category.interface";
 import ProductCard from "../product-card/product-card.component";
 
-import "./preview-category.styles.scss";
+import { CategoryTitle, ProductsContainer } from "./preview-category.styles";
 
 interface PreviewCategoryProps {
   categoriesMap: CategoriesMap;
@@ -19,10 +19,10 @@ const PreviewCategory: React.FC<PreviewCategoryProps> = ({ categoriesMap }) => {
         const category = categoriesMap[key];
         return (
           <div key={key}>
-            <h2 className="category-title">
+            <CategoryTitle className="category-title">
               <Link to={`/shop/${key}`}>{key}</Link>
-            </h2>
-            <div className="products-container">
+            </CategoryTitle>
+            <ProductsContainer>
               {category.slice(0, 4).map((product) => (
                 <ProductCard
                   product={product}
@@ -30,7 +30,7 @@ const PreviewCategory: React.FC<PreviewCategoryProps> = ({ categoriesMap }) => {
                   addItemToCart={addItemToCart}
                 />
               ))}
-            </div>
+            </ProductsContainer>
           </div>
         );
       })}

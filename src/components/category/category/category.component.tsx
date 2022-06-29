@@ -6,6 +6,7 @@ import {
   Items,
 } from "../../../shared/interfaces/category.interface";
 import ProductCard from "../../product-card/product-card.component";
+import { CategoryTitle, ProductsContainer } from "./preview-category.styles";
 
 interface CategoryProps {
   categoriesMap: CategoriesMap;
@@ -25,11 +26,11 @@ const Category: React.FC<CategoryProps> = ({ categoriesMap }) => {
 
   return (
     <>
-      <h2 className="category-title">
+      <CategoryTitle className="category-title">
         <span>{categoryID}</span>
-      </h2>
+      </CategoryTitle>
       {category && (
-        <div className="products-container">
+        <ProductsContainer>
           {category.map((product) => (
             <ProductCard
               key={product.id}
@@ -37,7 +38,7 @@ const Category: React.FC<CategoryProps> = ({ categoriesMap }) => {
               addItemToCart={addItemToCart}
             />
           ))}
-        </div>
+        </ProductsContainer>
       )}
     </>
   );
