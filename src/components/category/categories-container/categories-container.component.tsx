@@ -1,24 +1,24 @@
 import { CategoryItem } from "../category-item/category-item.component";
-import "./categories.styles.scss";
-
-
+import { Container } from "./categories.styles";
 
 interface CategoriesProps {
-    categories: Category[];
+  categories: Category[];
 }
 
 interface Category {
-    id: number;
-    title: string;
-    imageUrl: string;
+  id: number;
+  title: string;
+  imageUrl: string;
 }
 
-export const CategoriesContainer: React.FC<CategoriesProps> = ({categories}) => {
-   return (
-       <div className="categories-container">
-        {categories.map((category) => {
-          return <CategoryItem key={category.id} category={category} />;
-        })}
-      </div>
-   ) 
-}
+export const CategoriesContainer: React.FC<CategoriesProps> = ({
+  categories,
+}) => {
+  return (
+    <Container>
+      {categories.map((category) => {
+        return <CategoryItem key={category.id} category={category} />;
+      })}
+    </Container>
+  );
+};
