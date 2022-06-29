@@ -20,9 +20,7 @@ const PreviewCategory: React.FC<PreviewCategoryProps> = ({ categoriesMap }) => {
         return (
           <div key={key}>
             <h2 className="category-title">
-              <Link to={`/shop/${key}`}>
-                <span>{key}</span>
-              </Link>
+              <Link to={`/shop/${key}`}>{key}</Link>
             </h2>
             <div className="products-container">
               {category.slice(0, 4).map((product) => (
