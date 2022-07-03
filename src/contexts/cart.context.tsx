@@ -53,7 +53,7 @@ const cartReducer = (state: CartState, action: CartReducerAction) => {
         ...payload,
       };
     default:
-      throw new Error(`CartReducerActionTypes not found: ${type}`);
+      throw new Error("Unhandled action type: " + action.type);
   }
 };
 
