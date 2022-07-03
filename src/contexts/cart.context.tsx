@@ -1,5 +1,6 @@
 import { createContext, useReducer } from "react";
 import { CartItem } from "../shared/interfaces/products.interface";
+import { createAction } from "../utils/reducer/reducer.utils";
 
 interface Props {
   children: React.ReactNode;
@@ -134,14 +135,13 @@ export const Cartprovider: React.FC<Props> = ({ children }) => {
   );
 
   const updateCartItemsReducer = (cartItems: CartItem[]) => {
-    dispatch({
-      type: CartReducerActionTypes.SET_CART_ITEMS,
-      payload: {
+    dispatch(
+      createAction(CartReducerActionTypes.SET_CART_ITEMS, {
         cartItems,
         cartTotal: cartTotalPrice(cartItems),
         cartCount: cartTotalItems(cartItems),
-      },
-    });
+      })
+    );
   };
 
   const addItemToCart = (item: CartItem) => {
