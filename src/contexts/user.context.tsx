@@ -4,6 +4,7 @@ import {
   createUserDocFromAuth,
   onAuthStateChangedListener,
 } from "../utils/firebase/firebase.utils";
+import { createAction } from "../utils/reducer/reducer.utils";
 
 interface Props {
   children: React.ReactNode;
@@ -47,7 +48,7 @@ export const UserContext = React.createContext<UserContextProps | null>(null);
 export const UserProvider: React.FC<Props> = ({ children }) => {
   const [{ user }, dispatch] = useReducer(userReducer, { user: null });
   const setUser = (user: UserCredential | null) => {
-    dispatch({ type: UserActionTypes.SET_USER, payload: user });
+    dispatch(createAction(UserActionTypes.SET_USER, user));
   };
   const value = { user, setUser };
 
