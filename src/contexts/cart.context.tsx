@@ -52,6 +52,8 @@ const cartReducer = (state: CartState, action: CartReducerAction) => {
         ...state,
         ...payload,
       };
+    default:
+      throw new Error(`CartReducerActionTypes not found: ${type}`);
   }
 };
 
