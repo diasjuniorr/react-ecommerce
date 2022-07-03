@@ -16,7 +16,6 @@ interface CartContextProps {
   cartTotal: number;
 }
 
-//create CartReducerTypes
 interface CartState {
   isOpen: boolean;
   cartItems: CartItem[];
@@ -33,49 +32,40 @@ enum CartReducerActionTypes {
 
 interface CartReducerAction {
   type: CartReducerActionTypes;
-  payload: CartItem | null;
+  payload: CartReducerPayload | null;
 }
 
-//create CartReducer
+interface CartReducerPayload {
+  cartItems: CartItem[];
+  cartCount: number;
+  cartTotal: number;
+}
+
 const cartReducer = (state: CartState, action: CartReducerAction) => {
   const { type, payload } = action;
-  const { cartItems, isOpen } = state;
+  const { isOpen } = state;
 
   switch (type) {
     case CartReducerActionTypes.TOGGLE_CART_IS_OPEN:
       return { ...state, isOpen: !isOpen };
 
     case CartReducerActionTypes.ADD_ITEM_TO_CART:
-      const cartItemsAdded = addCartItem(cartItems, payload as CartItem);
+      console.log("debug", payload);
       return {
         ...state,
-        cartItems: cartItemsAdded,
-        cartTotal: cartTotalPrice(cartItemsAdded),
-        cartCount: cartTotalItems(cartItemsAdded),
+        ...payload,
       };
 
     case CartReducerActionTypes.REMOVE_ITEM_FROM_CART:
-      const cartItemsDecreased = decreaseCartItem(
-        cartItems,
-        payload as CartItem
-      );
       return {
         ...state,
-        cartItems: cartItemsDecreased,
-        cartTotal: cartTotalPrice(cartItemsDecreased),
-        cartCount: cartTotalItems(cartItemsDecreased),
+        ...payload,
       };
 
     case CartReducerActionTypes.REMOVE_ALL_ITEMS_FROM_CART:
-      const cartItemsRemovedAllMatches = removeAllMatchingItems(
-        cartItems,
-        payload as CartItem
-      );
       return {
         ...state,
-        cartItems: cartItemsRemovedAllMatches,
-        cartTotal: cartTotalPrice(cartItemsRemovedAllMatches),
-        cartCount: cartTotalItems(cartItemsRemovedAllMatches),
+        ...payload,
       };
   }
 };
@@ -143,32 +133,55 @@ export const CartContext = createContext<CartContextProps>({
   cartTotal: 0,
 });
 
+const initialState: CartState = {
+  isOpen: false,
+  cartItems: [],
+  cartCount: 0,
+  cartTotal: 0,
+};
+
 export const Cartprovider: React.FC<Props> = ({ children }) => {
   const [{ isOpen, cartItems, cartCount, cartTotal }, dispatch] = useReducer(
     cartReducer,
-    {
-      isOpen: false,
-      cartItems: [],
-      cartCount: 0,
-      cartTotal: 0,
-    } as CartState
+    initialState
   );
 
   const addItemToCart = (item: CartItem) => {
-    dispatch({ type: CartReducerActionTypes.ADD_ITEM_TO_CART, payload: item });
+    const newCartItems = addCartItem(cartItems, item);
+
+    dispatch({
+      type: CartReducerActionTypes.ADD_ITEM_TO_CART,
+      payload: {
+        cartItems: newCartItems,
+        cartTotal: cartTotalPrice(newCartItems),
+        cartCount: cartTotalItems(newCartItems),
+      },
+    });
   };
 
   const removeItemFromCart = (item: CartItem) => {
+    const newCartItems = decreaseCartItem(cartItems, item);
+
     dispatch({
       type: CartReducerActionTypes.REMOVE_ITEM_FROM_CART,
-      payload: item,
+      payload: {
+        cartItems: newCartItems,
+        cartTotal: cartTotalPrice(newCartItems),
+        cartCount: cartTotalItems(newCartItems),
+      },
     });
   };
 
   const removeAllItems = (item: CartItem) => {
+    const newCartItems = removeAllMatchingItems(cartItems, item);
+
     dispatch({
       type: CartReducerActionTypes.REMOVE_ALL_ITEMS_FROM_CART,
-      payload: item,
+      payload: {
+        cartItems: newCartItems,
+        cartTotal: cartTotalPrice(newCartItems),
+        cartCount: cartTotalItems(newCartItems),
+      },
     });
   };
 
