@@ -23,7 +23,6 @@ interface UserState {
   user: UserCredential | null;
 }
 
-//create reducerUser
 const userReducer = (state: UserState, action: UserReducerAction) => {
   const { type, payload } = action;
 
