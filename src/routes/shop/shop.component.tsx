@@ -1,17 +1,13 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Category from "../../components/category/category/category.component";
 import PreviewCategory from "../../components/preview-category/preview-category";
-import {
-  CategoriesContext,
-  CategoriesContextProps,
-} from "../../contexts/categories.context";
+import { CategoriesMap } from "../../shared/interfaces/category.interface";
+import { categoriesSelector } from "../../store/categories/categories.selector";
 
 const Shop = () => {
-  const categoriesContext = useContext(
-    CategoriesContext
-  ) as CategoriesContextProps;
-  const { categoriesMap } = categoriesContext;
+  const categoriesMap = useSelector(categoriesSelector) as CategoriesMap;
+  console.log("categoriesMap", categoriesMap);
 
   return (
     <Routes>
