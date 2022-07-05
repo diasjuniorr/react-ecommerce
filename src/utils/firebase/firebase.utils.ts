@@ -28,13 +28,13 @@ import {
 } from "../../shared/interfaces/category.interface";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAldbzxfXG0B_viWyvFed77B1RJr9D2qCQ",
-  authDomain: "react-ecommerce-5e1f8.firebaseapp.com",
-  projectId: "react-ecommerce-5e1f8",
-  storageBucket: "react-ecommerce-5e1f8.appspot.com",
-  messagingSenderId: "1028839396787",
-  appId: "1:1028839396787:web:3fa6b929d018dd90c127c6",
-  measurementId: "G-NQZDTF7JK4",
+  apiKey: process.env.REACT_APP_FB_API_KEY,
+  authDomain: process.env.REACT_APP_FB_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FB_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FB_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FB_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FB_APP_ID,
+  measurementId: process.env.REACT_APP_FB_MEASUREMENT_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
