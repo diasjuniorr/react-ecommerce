@@ -20,14 +20,14 @@ export const CategoriesProvider: React.FC<Props> = ({ children }) => {
   );
   const value = { categoriesMap, setCategoriesMap };
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const categories = await getCategoriesAndDocuemnts();
-      setCategoriesMap(categories);
-    };
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     const categories = await getCategoriesAndDocuemnts();
+  //     setCategoriesMap(categories);
+  //   };
 
-    fetchProducts();
-  }, []);
+  //   fetchProducts();
+  // }, []);
 
   return (
     <CategoriesContext.Provider value={value}>

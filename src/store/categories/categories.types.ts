@@ -1,16 +1,14 @@
-import { CategoriesMap } from "../../shared/interfaces/category.interface";
+import { CategoriesDoc } from "../../utils/firebase/firebase.utils";
 
 export enum CategoriesActionTypes {
-  loadCategories = "LOAD_CATEGORIES",
+  loadCategories = "SET_CATEGORIES",
 }
 
 export interface CategoriesReducerAction {
   type: CategoriesActionTypes;
-  payload: {
-    categoriesMap: CategoriesMap;
-  };
+  payload: [];
 }
 
 export interface CategoriesState {
-  categories?: CategoriesMap;
+  categories: CategoriesDoc[];
 }

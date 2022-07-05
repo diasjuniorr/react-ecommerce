@@ -5,7 +5,7 @@ import {
 } from "./categories.types";
 
 export const categoriesReducer = (
-  state: CategoriesState = {},
+  state: CategoriesState = { categories: [] },
   action: CategoriesReducerAction
 ) => {
   const { type, payload } = action;
@@ -14,7 +14,7 @@ export const categoriesReducer = (
     case CategoriesActionTypes.loadCategories:
       return {
         ...state,
-        ...payload,
+        categories: payload,
       };
     default:
       return state;

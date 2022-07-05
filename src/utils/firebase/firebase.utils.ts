@@ -22,10 +22,7 @@ import {
   getDocs,
   CollectionReference,
 } from "firebase/firestore";
-import {
-  CategoriesMap,
-  Items,
-} from "../../shared/interfaces/category.interface";
+import { Item } from "../../shared/interfaces/category.interface";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FB_API_KEY,
@@ -71,15 +68,8 @@ export const getCategoriesAndDocuemnts = async () => {
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
-  const categoriesMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
 
-    acc[title.toLowerCase()] = items;
-
-    return acc;
-  }, {} as CategoriesMap);
-
-  return categoriesMap;
+  return querySnapshot.docs.map((doc) => doc.data());
 };
 
 export const signinWithgooglePopup = () =>
@@ -135,7 +125,7 @@ interface UserInfo {
   displayName: string;
 }
 
-interface CategoriesDoc {
+export interface CategoriesDoc {
   title: string;
-  items: Items[];
+  items: Item[];
 }

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Category from "../../components/category/category/category.component";
 import PreviewCategory from "../../components/preview-category/preview-category";
@@ -9,6 +9,7 @@ import { categoriesSelector } from "../../store/categories/categories.selector";
 import { getCategoriesAndDocuemnts } from "../../utils/firebase/firebase.utils";
 
 const Shop = () => {
+  const dispatch = useDispatch();
   const categoriesMap = useSelector(categoriesSelector) as CategoriesMap;
 
   useEffect(() => {
@@ -35,6 +36,3 @@ const Shop = () => {
 };
 
 export default Shop;
-function dispatch(arg0: { type: any; payload: any }) {
-  throw new Error("Function not implemented.");
-}

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { CartContext } from "../../../contexts/cart.context";
 import {
   CategoriesMap,
-  Items,
+  Item,
 } from "../../../shared/interfaces/category.interface";
 import ProductCard from "../../product-card/product-card.component";
 import { CategoryTitle, ProductsContainer } from "./preview-category.styles";
@@ -16,7 +16,7 @@ const Category: React.FC<CategoryProps> = ({ categoriesMap }) => {
   const { categoryID } = useParams();
   const { addItemToCart } = useContext(CartContext);
 
-  const [category, setCategory] = useState<Items[]>(
+  const [category, setCategory] = useState<Item[]>(
     categoriesMap[categoryID as string]
   );
 

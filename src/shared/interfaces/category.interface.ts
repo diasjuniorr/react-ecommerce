@@ -1,4 +1,4 @@
-export interface Items {
+export interface Item {
   id: number;
   imageUrl: string;
   price: number;
@@ -6,5 +6,5 @@ export interface Items {
 }
 
 export interface CategoriesMap {
-  [key: string]: Items[];
+  [key: string]: Item[];
 }
