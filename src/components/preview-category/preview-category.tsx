@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CategoriesMap } from "../../shared/interfaces/category.interface";
 import { CartItem } from "../../shared/interfaces/products.interface";
 import { addItemToCart } from "../../store/cart/cart.actions";
-import { cartSelector } from "../../store/cart/cart.selector";
+import { selectCartItems } from "../../store/cart/cart.selector";
 import ProductCard from "../product-card/product-card.component";
 
 import { CategoryTitle, ProductsContainer } from "./preview-category.styles";
@@ -13,7 +13,7 @@ interface PreviewCategoryProps {
 }
 
 const PreviewCategory: React.FC<PreviewCategoryProps> = ({ categoriesMap }) => {
-  const { cartItems } = useSelector(cartSelector);
+  const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
 
   const handleAddItemToCart = (cartItem: CartItem) => {

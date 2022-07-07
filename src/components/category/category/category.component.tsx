@@ -9,7 +9,7 @@ import {
 import ProductCard from "../../product-card/product-card.component";
 import { CategoryTitle, ProductsContainer } from "./preview-category.styles";
 import { CartItem } from "../../../shared/interfaces/products.interface";
-import { cartSelector } from "../../../store/cart/cart.selector";
+import { selectCartItems } from "../../../store/cart/cart.selector";
 
 interface CategoryProps {
   categoriesMap: CategoriesMap;
@@ -18,7 +18,7 @@ interface CategoryProps {
 const Category: React.FC<CategoryProps> = ({ categoriesMap }) => {
   const dispatch = useDispatch();
   const { categoryID } = useParams();
-  const { cartItems } = useSelector(cartSelector);
+  const cartItems = useSelector(selectCartItems);
 
   const [category, setCategory] = useState<Item[]>(
     categoriesMap[categoryID as string]

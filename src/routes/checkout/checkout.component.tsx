@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
-import { cartSelector } from "../../store/cart/cart.selector";
+import {
+  selectCartItems,
+  selectCartTotal,
+} from "../../store/cart/cart.selector";
 import {
   addItemToCart,
   removeItemFromCart,
@@ -16,8 +19,8 @@ import { CartItem } from "../../shared/interfaces/products.interface";
 
 const Checkout: React.FC = () => {
   const dispatch = useDispatch();
-  const cart = useSelector(cartSelector);
-  const { cartItems, cartTotal } = cart;
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
 
   const handleRemoveItemFromCart = (cartItem: CartItem) => {
     dispatch(removeItemFromCart(cartItems, cartItem));

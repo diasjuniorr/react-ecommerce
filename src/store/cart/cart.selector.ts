@@ -1,16 +1,26 @@
+import { createSelector } from "reselect";
 import { CartItem } from "../../shared/interfaces/products.interface";
 import { CartState } from "./cart.types";
 
-export const cartSelectorIsOpen = (state: CartState) => state.cart.isOpen;
+const selectCart = (state: CartState) => state.cart;
 
-export const cartSelector = (state: CartState) => {
-  const { cartItems } = state.cart;
-  return {
-    cartItems,
-    cartTotal: cartTotalPrice(cartItems),
-    cartCount: cartTotalItems(cartItems),
-  };
-};
+export const selectIsCartOpen = createSelector(
+  [selectCart],
+  (cart) => cart.isOpen
+);
+
+export const selectCartItems = createSelector(
+  [selectCart],
+  (cart) => cart.cartItems
+);
+
+export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
+  cartTotalPrice(cartItems)
+);
+
+export const selectCartCount = createSelector([selectCartItems], (cartItems) =>
+  cartTotalItems(cartItems)
+);
 
 const cartTotalPrice = (cartItems: CartItem[]) => {
   return cartItems.reduce((total, cartItem) => {

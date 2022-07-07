@@ -13,10 +13,10 @@ import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../store/user/user.selector";
-import { cartSelectorIsOpen } from "../../store/cart/cart.selector";
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
 const Navigation = () => {
-  const isCartOpen = useSelector(cartSelectorIsOpen);
+  const isCartOpen = useSelector(selectIsCartOpen);
   const currentUser = useSelector(userSelector);
 
   const signOutHandler = async () => {
