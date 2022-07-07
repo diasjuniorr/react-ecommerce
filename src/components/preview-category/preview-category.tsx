@@ -1,7 +1,9 @@
-import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { CartContext } from "../../contexts/cart.context";
 import { CategoriesMap } from "../../shared/interfaces/category.interface";
+import { CartItem } from "../../shared/interfaces/products.interface";
+import { addItemToCart } from "../../store/cart/cart.actions";
+import { cartSelector } from "../../store/cart/cart.selector";
 import ProductCard from "../product-card/product-card.component";
 
 import { CategoryTitle, ProductsContainer } from "./preview-category.styles";
@@ -11,7 +13,12 @@ interface PreviewCategoryProps {
 }
 
 const PreviewCategory: React.FC<PreviewCategoryProps> = ({ categoriesMap }) => {
-  const { addItemToCart } = useContext(CartContext);
+  const { cartItems } = useSelector(cartSelector);
+  const dispatch = useDispatch();
+
+  const handleAddItemToCart = (cartItem: CartItem) => {
+    dispatch(addItemToCart(cartItems, cartItem));
+  };
 
   return (
     <>
@@ -27,7 +34,7 @@ const PreviewCategory: React.FC<PreviewCategoryProps> = ({ categoriesMap }) => {
                 <ProductCard
                   product={product}
                   key={product.id}
-                  addItemToCart={addItemToCart}
+                  addItemToCart={handleAddItemToCart}
                 />
               ))}
             </ProductsContainer>

@@ -1,22 +1,35 @@
-import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
-import { CartContext } from "../../contexts/cart.context";
+import { cartSelector } from "../../store/cart/cart.selector";
+import {
+  addItemToCart,
+  removeItemFromCart,
+  removeAllItems,
+} from "../../store/cart/cart.actions";
 import {
   CheckoutContainer,
   CheckoutHeader,
   HeaderBlock,
   Total,
 } from "./checkout.styles";
+import { CartItem } from "../../shared/interfaces/products.interface";
 
 const Checkout: React.FC = () => {
-  const cartContext = useContext(CartContext);
-  const {
-    cartItems,
-    cartTotal,
-    addItemToCart,
-    removeItemFromCart,
-    removeAllItems,
-  } = cartContext;
+  const dispatch = useDispatch();
+  const cart = useSelector(cartSelector);
+  const { cartItems, cartTotal } = cart;
+
+  const handleRemoveItemFromCart = (cartItem: CartItem) => {
+    dispatch(removeItemFromCart(cartItems, cartItem));
+  };
+
+  const handleAddItemToCart = (cartItem: CartItem) => {
+    dispatch(addItemToCart(cartItems, cartItem));
+  };
+
+  const handleRemoveAllItems = (cartItem: CartItem) => {
+    dispatch(removeAllItems(cartItems, cartItem));
+  };
 
   return (
     <CheckoutContainer>
@@ -42,9 +55,9 @@ const Checkout: React.FC = () => {
           <CheckoutItem
             key={cartItem.id}
             cartItem={cartItem}
-            removeItemFromCart={removeItemFromCart}
-            addItemToCart={addItemToCart}
-            removeAllItems={removeAllItems}
+            removeItemFromCart={handleRemoveItemFromCart}
+            addItemToCart={handleAddItemToCart}
+            removeAllItems={handleRemoveAllItems}
           />
         );
       })}
