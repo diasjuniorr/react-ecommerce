@@ -4,6 +4,7 @@ import logger from "redux-logger";
 import persistReducer from "redux-persist/es/persistReducer";
 import persistStore from "redux-persist/es/persistStore";
 import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
 import { rootReducer } from "./root-educer";
 
 const persistConfig = {
@@ -12,7 +13,7 @@ const persistConfig = {
   blacklist: ["user"],
 };
 
-const middlewares = [logger];
+const middlewares = [logger, thunk];
 
 const composeEnhancers = compose(applyMiddleware(...middlewares));
 

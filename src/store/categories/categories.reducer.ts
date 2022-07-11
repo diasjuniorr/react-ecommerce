@@ -5,16 +5,28 @@ import {
 } from "./categories.types";
 
 export const categoriesReducer = (
-  state: CategoriesState = { categories: [] },
+  state: CategoriesState = { categories: [], isLoading: false, error: null },
   action: CategoriesReducerAction
 ) => {
   const { type, payload } = action;
 
   switch (type) {
-    case CategoriesActionTypes.loadCategories:
+    case CategoriesActionTypes.FETCH_CATEGORIES_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case CategoriesActionTypes.FETCH_CATEGORIES_SUCCESS:
       return {
         ...state,
         categories: payload,
+        isLoading: false,
+      };
+    case CategoriesActionTypes.FETCH_CATEGORIES_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: payload,
       };
     default:
       return state;
