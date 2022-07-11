@@ -18,6 +18,10 @@ const composeEnhancers = compose(applyMiddleware(...middlewares));
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(persistedReducer, undefined, composeEnhancers);
+export const store = createStore(
+  persistedReducer,
+  undefined,
+  process.env.NODE_ENV === "development" ? composeEnhancers : undefined
+);
 
 export const persistor = persistStore(store);
