@@ -10,7 +10,7 @@ import { rootReducer } from "./root-educer";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["user"],
+  whitelist: ["cart"],
 };
 
 const middlewares = [logger, thunk];

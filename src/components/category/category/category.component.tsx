@@ -10,15 +10,18 @@ import ProductCard from "../../product-card/product-card.component";
 import { CategoryTitle, ProductsContainer } from "./preview-category.styles";
 import { CartItem } from "../../../shared/interfaces/products.interface";
 import { selectCartItems } from "../../../store/cart/cart.selector";
+import { isLoadingSelector } from "../../../store/categories/categories.selector";
+import Spinner from "../../spinner/spinner.component";
 
 interface CategoryProps {
   categoriesMap: CategoriesMap;
 }
 
 const Category: React.FC<CategoryProps> = ({ categoriesMap }) => {
-  const dispatch = useDispatch();
   const { categoryID } = useParams();
   const cartItems = useSelector(selectCartItems);
+  const isLoading = useSelector(isLoadingSelector);
+  const dispatch = useDispatch();
 
   const [category, setCategory] = useState<Item[]>(
     categoriesMap[categoryID as string]
@@ -31,6 +34,8 @@ const Category: React.FC<CategoryProps> = ({ categoriesMap }) => {
   useEffect(() => {
     setCategory(categoriesMap[categoryID as string]);
   }, [categoryID, categoriesMap]);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <>

@@ -4,7 +4,9 @@ import { CategoriesMap } from "../../shared/interfaces/category.interface";
 import { CartItem } from "../../shared/interfaces/products.interface";
 import { addItemToCart } from "../../store/cart/cart.actions";
 import { selectCartItems } from "../../store/cart/cart.selector";
+import { isLoadingSelector } from "../../store/categories/categories.selector";
 import ProductCard from "../product-card/product-card.component";
+import Spinner from "../spinner/spinner.component";
 
 import { CategoryTitle, ProductsContainer } from "./preview-category.styles";
 
@@ -14,11 +16,14 @@ interface PreviewCategoryProps {
 
 const PreviewCategory: React.FC<PreviewCategoryProps> = ({ categoriesMap }) => {
   const cartItems = useSelector(selectCartItems);
+  const isLoading = useSelector(isLoadingSelector);
   const dispatch = useDispatch();
 
   const handleAddItemToCart = (cartItem: CartItem) => {
     dispatch(addItemToCart(cartItems, cartItem));
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <>

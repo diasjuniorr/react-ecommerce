@@ -13,6 +13,16 @@ export const selectCategories = createSelector(
   (categories) => categories.categories
 );
 
+export const isLoadingSelector = createSelector(
+  [selectCategoryReducer],
+  (categories) => categories.isLoading
+);
+
+export const errorSelector = createSelector(
+  [selectCategoryReducer],
+  (categories) => categories.error
+);
+
 export const categoriesSelector = createSelector(
   [selectCategories],
   (categories) => {
