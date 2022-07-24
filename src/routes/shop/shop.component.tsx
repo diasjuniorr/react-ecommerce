@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Category from "../../components/category/category/category.component";
 import PreviewCategory from "../../components/preview-category/preview-category";
 import { CategoriesMap } from "../../shared/interfaces/category.interface";
-import { fetchCategoriesAsync } from "../../store/categories/categories.action";
+import { fetchCategoriesStart } from "../../store/categories/categories.action";
 import { categoriesSelector } from "../../store/categories/categories.selector";
 
 const Shop = () => {
@@ -12,7 +12,7 @@ const Shop = () => {
   const categoriesMap = useSelector(categoriesSelector) as CategoriesMap;
 
   useEffect(() => {
-    fetchCategoriesAsync(dispatch);
+    dispatch(fetchCategoriesStart());
   }, []);
 
   return (
